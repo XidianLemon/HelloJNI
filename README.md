@@ -12,7 +12,8 @@
 
 ## 详细教程
 
-###第一步：新建安卓程序对应安卓版本是默认的我没有修改。
+### 第一步：
+新建安卓程序对应安卓版本是默认的我没有修改。
 ![](./images/xinjian.png)
 
 只有一个主类MainActivity，界面也很简单，一个button一个textview，我想实现的就是点击button，textview变成由c传过来的string。
@@ -58,11 +59,13 @@ static {
 这句的意思是当调用c的时候，调用的不是你写的.c文件，而是工程目录下的一个叫obj文件夹中的.so类库，这个.so类库的名字就叫System.loadLibrary("");里引号中的，比如这里.so类库名字就叫HelloWorld.so。
 最后在点击事件中，setText这个方法的参数就是这个native函数。
 
-###第二步：右键项目名HelloWorld - new - other - Convert to a C/C++ Project(Adds C/C++ Native)-next，选择你的项目HelloWorld，点击finish。这一步是为了给该项目添加c/c++属性，使项目支持c/c++编程。
+### 第二步：
+右键项目名HelloWorld - new - other - Convert to a C/C++ Project(Adds C/C++ Native)-next，选择你的项目HelloWorld，点击finish。这一步是为了给该项目添加c/c++属性，使项目支持c/c++编程。
 ![](./images/converttoc1.png)
 ![](./images/converttoc2.png)
 
-###第三步：右键项目名HelloWorld - new - Folder新建一个文件夹，起名为jni，右键jni文件夹 - New - File 新建一个文件起名HelloWorld.c。这里如果是用c++写的就起名.cpp，如果是c写的，后缀就是.c，这个文件名字一定要记住！右键jni文件夹 - New - File 新建一个文件起名Android.mk，文件里的内容下面会讲到。
+### 第三步：
+右键项目名HelloWorld - new - Folder新建一个文件夹，起名为jni，右键jni文件夹 - New - File 新建一个文件起名HelloWorld.c。这里如果是用c++写的就起名.cpp，如果是c写的，后缀就是.c，这个文件名字一定要记住！右键jni文件夹 - New - File 新建一个文件起名Android.mk，文件里的内容下面会讲到。
 ![](./images/newfolder1.png)
 
 ``` C
@@ -89,7 +92,7 @@ include $(BUILD_SHARED_LIBRARY)
 这是Android.mk文件中的内容，重点是LOCAL_MODULE    := HelloWorld，要和你在java里static函数里指定的.so类库的名称一样，
 LOCAL_SRC_FILES := HelloWorld.c这里要和你的jni文件夹下的.c文件的名字一样
 
-###第四步：
+### 第四步：
 在xml布局文件下，是这些内容：
 ``` xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -131,11 +134,11 @@ LOCAL_SRC_FILES := HelloWorld.c这里要和你的jni文件夹下的.c文件的名字一样
 ```
 没什么可讲的，里面就是一个button一个textview。
 
-###第五步
+### 第五步
 右键项目HelloWorld - Properties - c/c++ Build - Tool Chain Editor，将Current Builder改为Android Builder。然后点击c/c++ build，将Makefile generate 下的 Generate Makefiles automatically的勾去掉。
 ![](./images/toolchainediter1.png)
 ![](./images/toolchainediter2.png)
 
-###第六步
+### 第六步
 右键项目名HelloWorld - clean project，这时你的工程文件夹下应该就出现了一个obj文件夹，文件夹里有一个文件叫HelloWorld.so，这时编译器通过build你的jni文件夹下的c文件生成的，其实这时候你把jni文件夹删除，这个例程照样能跑，因为运行时候调用的是.so类库，而不是你的jni文件夹下的c文件。这时工程会提示你的项目有错误，错误在HelloWorld.c文件下，你直接把错误删除，运行工程就可以了。
 
